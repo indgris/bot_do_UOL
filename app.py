@@ -10,16 +10,16 @@ menu = """
 
 @app.route("/")
 def hello_world():
-  return "Olá, mundo! Este é o saite da indgri"
+  return menu + "Olá, mundo! Este é o saite da indgri"
 
 @app.route("/sobre")
 def sobre():
-  return "Sobre: ser ou não ser?"
+  return menu + "Sobre: ser ou não ser?"
 
 @app.route("/contato")
 def contato():
-  return "algum-email-ficticio@gmail.com"
+  return menu + "algum-email-ficticio@gmail.com"
 
 @app.route("/portfolio")
 def contato():
-  return "https://www.behance.net/indgri"
+  return menu + "https://www.behance.net/indgri"
