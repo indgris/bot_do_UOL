@@ -21,5 +21,5 @@ def contato():
   return menu + "algum-email-ficticio@gmail.com"
 
 @app.route("/portfolio")
-def contato():
+def portfolio():
   return menu + "https://www.behance.net/indgri"
