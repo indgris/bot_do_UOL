@@ -2,14 +2,20 @@ from flask import Flask
 
 app = Flask(__name__)
 
+menu = """
+
+<a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
+<br>
+"""
+
 @app.route("/")
 def hello_world():
-  return "Olá, mundo!"
+  return "Olá, mundo! Este é o saite da indgri"
 
 @app.route("/sobre")
 def sobre():
-  return "Sobre"
+  return "Sobre: ser ou não ser?"
 
 @app.route("/contato")
 def contato():
-  return "contato@algum.com"
+  return "algum-email-ficticio@gmail.com"
