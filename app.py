@@ -7,6 +7,9 @@ from flask import Flask, request
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
+TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
+
 # Estrutura do site onde o trabalho será apresentado
 app = Flask(__name__)
 
