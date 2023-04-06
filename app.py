@@ -81,7 +81,7 @@ def telegram_bot():
             texto_resposta = "Não entendi!"
 
         nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-        requests.post(f"https://api.telegram.org./bot{token}/sendMessage", data=nova_mensagem)
+        requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
 
         # Requisita que a API do Telegram mande a mensagem
         resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
