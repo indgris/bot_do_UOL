@@ -41,12 +41,10 @@ def telegram_bot():
     update = request.json
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
-    datahora = str(datetime.fromtimestamp(update["message"]["date"]))
+    datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
     first_name = update["message"]["from"]["first_name"]
-    
-    #Criando uma função que raspa as notícias mais lidas e devolve a mensagem que será enviada no bot do Telegram
 
-def mensagem_com_noticias_mais_lidas():
+    def mensagem_com_noticias_mais_lidas():
     # raspagem
     link = 'http://uol.com.br'
     resposta = requests.get(link)
@@ -69,8 +67,9 @@ def mensagem_com_noticias_mais_lidas():
 
     return mensagem_final
 
+     mensagem_final = mensagem_com_noticias_mais_lidas()
     
-    #Configuração da troca de mensagem
+    # Configuração da troca de mensagem
     if message == "/start":
         texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
 
@@ -78,7 +77,7 @@ def mensagem_com_noticias_mais_lidas():
         texto_resposta = mensagem_final
 
     elif message.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
-        mensagem_final = mensagem_com_noticia_mais_lida()
+        mensagem_final = mensagem_com_noticias_mais_lidas()
         texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
         for item in mensagem_final.split('\n')[:-1]:
             texto_resposta += f"{item}\n"
@@ -88,9 +87,8 @@ def mensagem_com_noticias_mais_lidas():
 
     nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
     requests.post(f"https://api.telegram.org./bot{token}/sendMessage", data=nova_mensagem)
-    mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta])
     
-    #Requisita que a API do Telegram mande a mensagem
+    # Requisita que a API do Telegram mande a mensagem
     resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
     print(resposta.text)
     return "ok"
