@@ -1,11 +1,26 @@
 import os
 
 import requests
+import gspread
 from flask import Flask
+from bs4 import BeautifulSoup
+from datetime import datetime
+from oauth2client.service_account import ServiceAccountCredentials
 from tchan import ChannelScraper
+
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
 TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
+GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
+
+with open ("credenciais.json", mode="w") as fobj:
+  fobj.write(GOOGLE_SHEETS_CREDENTIALS)
+
+conta = ServiceAccountCredentials.from_json()
+api = gspread.authorize(conta) # sheets.new
+planilha = api.open_by_key("1BuTfkPK7oY3X9-dA4pz1Z-KtNiyyWIFjZUs0CICr4Qg")
+sheet = planilha.worksheet("Updates")
+
 app = Flask(__name__)
 
 menu = """
@@ -52,3 +67,8 @@ def dedoduro():
   mensagem = {"chat_id": TELEGRAM_ADMIN_ID, "text": "Alguém acessou a página dedo duro!"}
   requests.post(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
   return "Tô de olho, ein!"
+
+@app.route("/dedoduro2")
+def dedoduro2():
+  sheet.append_row(["Teste", "Banan", "maça"])
+  return "Planilha escrita!"
