@@ -2,11 +2,10 @@ import os
 
 import requests
 import gspread
-from flask import Flask
+from flask import Flask, request
 from bs4 import BeautifulSoup
 from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
-from tchan import ChannelScraper
 
 
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
@@ -22,8 +21,7 @@ app = Flask(__name__)
 
 menu = """
 
-<a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a> |  <a href="/portfolio">Portfólio</a> | <a href="/promocoes">Promoções</a>
-<br>
+<a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
 """
 
 @app.route("/")
@@ -36,36 +34,37 @@ def sobre():
 
 @app.route("/contato")
 def contato():
-  return menu + "algum-email-ficticio@gmail.com"
+  return menu + "iruela@uolinc.com"
 
-@app.route("/portfolio")
-def portfolio():
-  return menu + "https://www.behance.net/indgri"
+@app.route("/telegram-bot", methods=["POST"])
+def telegram_bot():
+    update = request.json
+    message = update["message"]["text"]
+    chat_id = update["message"]["chat"]["id"]
+    datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
+    first_name = update["message"]["from"]["first_name"]
+    
+    #Lógica de mensagem
+    if message == "/start":
+        texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
 
-@app.route("/promocoes")
-def promocoes():
-  conteudo = menu + """
-  Encontrei as seguintes promoções no <a href="https://t.me/promocoeseachadinhos">@promocoeseachadinhos</a>:
-  <br>
-  <ul>
-  """
-  scraper = ChannelScraper()
-  contador = 0
-  for message in scraper.messages("promocoeseachadinhos"):
-    contador += 1
-    texto = message.text.strip().splitlines()[0]
-    conteudo += f"<li>{message.created_at} {texto}</li>"
-    if contador == 10:
-      break
-  return conteudo + "</ul>"
+    elif message == "/sim":
+        texto_resposta = mensagem_final
 
-@app.route("/dedoduro")
-def dedoduro():
-  mensagem = {"chat_id": TELEGRAM_ADMIN_ID, "text": "Alguém acessou a página dedo duro!"}
-  requests.post(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
-  return "Tô de olho, ein!"
+    elif message.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
+        mensagem_final = mensagem_com_noticia_mais_lida()
+        texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
+        for item in mensagem_final.split('\n')[:-1]:
+            texto_resposta += f"{item}\n"
 
-@app.route("/dedoduro2")
-def dedoduro2():
-  sheet.append_row(["Teste", "Banan", "maça"])
-  return "Planilha escrita!"
+    else:
+        texto_resposta = "Não entendi!"
+
+    nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
+    requests.post(f"https://api.telegram.org./bot{token}/sendMessage", data=nova_mensagem)
+    mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta])
+    
+    #Requisita que a API do Telegram mande a mensagem
+    resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
+    print(resposta.text)
+    return "ok"
