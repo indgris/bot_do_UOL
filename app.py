@@ -41,7 +41,7 @@ def telegram_bot():
     update = request.json
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
-    datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
+    datahora = str(datetime.fromtimestamp(update["message"]["date"]))
     first_name = update["message"]["from"]["first_name"]
     
     #Criando uma função que raspa as notícias mais lidas e devolve a mensagem que será enviada no bot do Telegram
