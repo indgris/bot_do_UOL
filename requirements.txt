@@ -5,5 +5,4 @@ requests
 gspread
 oauth2client
 bs4
-BeautifulSoup
 datetime
