@@ -9,15 +9,12 @@ from oauth2client.service_account import ServiceAccountCredentials
 from tchan import ChannelScraper
 
 
-TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
-TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
-
-with open ("credenciais.json", mode="w") as fobj:
-  fobj.write(GOOGLE_SHEETS_CREDENTIALS)
-
-conta = ServiceAccountCredentials.from_json()
-api = gspread.authorize(conta) # sheets.new
+with open("credenciais.json", mode="w") as arquivo:
+  arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
+  
+conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
+api = gspread.authorize(conta)
 planilha = api.open_by_key("1BuTfkPK7oY3X9-dA4pz1Z-KtNiyyWIFjZUs0CICr4Qg")
 sheet = planilha.worksheet("Updates")
 
