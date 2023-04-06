@@ -3,23 +3,9 @@
 import os
 
 import requests
-import gspread
 from flask import Flask, request
 from bs4 import BeautifulSoup
 from datetime import datetime
-from oauth2client.service_account import ServiceAccountCredentials
-
-
-# Autorizar e acessar a planilha
-GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
-with open("credenciais.json", mode="w") as arquivo:
-  arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
-  
-conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
-api = gspread.authorize(conta)
-planilha = api.open_by_key("1BuTfkPK7oY3X9-dA4pz1Z-KtNiyyWIFjZUs0CICr4Qg")
-sheet = planilha.worksheet("Updates")
-
 
 # Estrutura do site onde o trabalho será apresentado
 app = Flask(__name__)
@@ -27,6 +13,7 @@ app = Flask(__name__)
 menu = """
 
 <a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
+
 """
 
 @app.route("/")
@@ -35,7 +22,7 @@ def hello_world():
 
 @app.route("/sobre")
 def sobre():
-  return menu + "Sobre: ser ou não ser?"
+  return menu + "Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos."
 
 @app.route("/contato")
 def contato():
@@ -66,13 +53,7 @@ def telegram_bot():
                 link = noticia.get('href')
                 data = datetime.today()
                 mais_lidas_uol.append([manchete, link])
-
-            # Adicionando dados à planilha
-            for item in mais_lidas_uol:
-                manchete, link = item
-                data = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
-                row = [data, manchete, link]
-                worksheet.append_row(row)
+           
 
             # Tratamento da mensagem final que será enviada pelo bot
             mensagem_final = " "
