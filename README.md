@@ -13,9 +13,7 @@ Este projeto é um bot do Telegram que fornece as notícias mais lidas do site U
 - bs4
 - datetime
 - flask
-- gspread
 - gunicorn
-- oauth2client
 - requests
 
 ## Comandos do bot
