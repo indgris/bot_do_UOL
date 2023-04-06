@@ -1,3 +1,5 @@
+#Importando as bibliotecas e objetos necessários
+
 import os
 
 import requests
@@ -8,6 +10,7 @@ from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
 
+# Autorizar e acessar a planilha
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
 with open("credenciais.json", mode="w") as arquivo:
   arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
@@ -17,6 +20,8 @@ api = gspread.authorize(conta)
 planilha = api.open_by_key("1BuTfkPK7oY3X9-dA4pz1Z-KtNiyyWIFjZUs0CICr4Qg")
 sheet = planilha.worksheet("Updates")
 
+
+# Estrutura do site onde o trabalho será apresentado
 app = Flask(__name__)
 
 menu = """
@@ -38,57 +43,66 @@ def contato():
 
 @app.route("/telegram-bot", methods=["POST"])
 def telegram_bot():
-    update = request.json
-    message = update["message"]["text"]
-    chat_id = update["message"]["chat"]["id"]
-    datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
-    first_name = update["message"]["from"]["first_name"]
+    if request.method == "POST":
+        update = request.get_json()
+        if "message" in update:
+            text = update["message"]["text"]
+            chat_id = update["message"]["chat"]["id"]
+            datahora = str(datetime.fromtimestamp(update["message"]["date"]))
+            first_name = update["message"]["from"]["first_name"]
 
-    def mensagem_com_noticias_mais_lidas():
-    # raspagem
-    link = 'http://uol.com.br'
-    resposta = requests.get(link)
-    html = BeautifulSoup(resposta.content, 'html.parser')
+        def mensagem_com_noticias_mais_lidas():
+            # raspagem
+            link = 'http://uol.com.br'
+            resposta = requests.get(link)
+            html = BeautifulSoup(resposta.content, 'html.parser')
 
-    links_uol = html.findAll('ol', {'class': 'mostRead'})[0].findAll('a')
+            links_uol = html.findAll('ol', {'class': 'mostRead'})[0].findAll('a')
 
-    mais_lidas_uol = []
+            mais_lidas_uol = []
 
-    for noticia in links_uol:
-        manchete = noticia.text.strip()
-        link = noticia.get('href')
-        data = datetime.today()
-        mais_lidas_uol.append([manchete, link])
+            for noticia in links_uol:
+                manchete = noticia.text.strip()
+                link = noticia.get('href')
+                data = datetime.today()
+                mais_lidas_uol.append([manchete, link])
 
-    #Tratamento da mensagem final que será enviada pelo bot
-    mensagem_final = " "
-    for item in mais_lidas_uol:
-        mensagem_final = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n"
+            # Adicionando dados à planilha
+            for item in mais_lidas_uol:
+                manchete, link = item
+                data = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+                row = [data, manchete, link]
+                worksheet.append_row(row)
 
-    return mensagem_final
+            # Tratamento da mensagem final que será enviada pelo bot
+            mensagem_final = " "
+            for item in mais_lidas_uol:
+                mensagem_final = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n"
 
-     mensagem_final = mensagem_com_noticias_mais_lidas()
-    
-    # Configuração da troca de mensagem
-    if message == "/start":
-        texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
+            return mensagem_final
 
-    elif message == "/sim":
-        texto_resposta = mensagem_final
-
-    elif message.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
         mensagem_final = mensagem_com_noticias_mais_lidas()
-        texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
-        for item in mensagem_final.split('\n')[:-1]:
-            texto_resposta += f"{item}\n"
 
-    else:
-        texto_resposta = "Não entendi!"
+        # Configuração da troca de mensagem
+        if text == "/start":
+            texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
 
-    nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-    requests.post(f"https://api.telegram.org./bot{token}/sendMessage", data=nova_mensagem)
-    
-    # Requisita que a API do Telegram mande a mensagem
-    resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
-    print(resposta.text)
-    return "ok"
+        elif text == "/sim":
+            texto_resposta = mensagem_final
+
+        elif text.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
+            mensagem_final = mensagem_com_noticias_mais_lidas()
+            texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
+            for item in mensagem_final.split('\n')[:-1]:
+                texto_resposta += f"{item}\n"
+
+        else:
+            texto_resposta = "Não entendi!"
+
+        nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
+        requests.post(f"https://api.telegram.org./bot{token}/sendMessage", data=nova_mensagem)
+
+        # Requisita que a API do Telegram mande a mensagem
+        resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
+        print(resposta.text)
+        return "ok"
