@@ -6,7 +6,7 @@ Este projeto é um bot do Telegram que fornece as notícias mais lidas do site U
 
 - Raspagem das notícias mais lidas no site UOL
 - Envio das notícias mais lidas para os usuários do Telegram
-- Comandos simples para interação com o bot: /start, /sim
+- Comandos simples para interação com o bot
 
 ## Requisitos
 
