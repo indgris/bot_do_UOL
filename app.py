@@ -44,7 +44,33 @@ def telegram_bot():
     datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
     first_name = update["message"]["from"]["first_name"]
     
-    #Lógica de mensagem
+    #Criando uma função que raspa as notícias mais lidas e devolve a mensagem que será enviada no bot do Telegram
+
+def mensagem_com_noticias_mais_lidas():
+    # raspagem
+    link = 'http://uol.com.br'
+    resposta = requests.get(link)
+    html = BeautifulSoup(resposta.content, 'html.parser')
+
+    links_uol = html.findAll('ol', {'class': 'mostRead'})[0].findAll('a')
+
+    mais_lidas_uol = []
+
+    for noticia in links_uol:
+        manchete = noticia.text.strip()
+        link = noticia.get('href')
+        data = datetime.today()
+        mais_lidas_uol.append([manchete, link])
+
+    #Tratamento da mensagem final que será enviada pelo bot
+    mensagem_final = " "
+    for item in mais_lidas_uol:
+        mensagem_final = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n"
+
+    return mensagem_final
+
+    
+    #Configuração da troca de mensagem
     if message == "/start":
         texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
 
