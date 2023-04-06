@@ -1,16 +1,27 @@
-##O que você encontrará aqui?##
+# UOL Notícias Mais Lidas Telegram Bot
 
-##Configurando o webhook do Telegram##
+Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos.
 
+## Funcionalidades
 
-##Configurando o webhook do Telegram##
+- Raspagem das notícias mais lidas no site UOL
+- Envio das notícias mais lidas para os usuários do Telegram
+- Comandos simples para interação com o bot: /start, /sim
 
-Execute o seguinte código:
-```
-import requests
+## Requisitos
 
-token = "SEU TOKEN"
-url = "https://site-teste-turicas.onrender.com/telegram-bot"
-response = requests.post(f"https://api.telegram.org/bot{token}/setWebhook", data={"url": url})
-print(response.text)
-```
+- bs4
+- datetime
+- flask
+- gspread
+- gunicorn
+- oauth2client
+- requests
+
+## Comandos do bot
+
+- `/start`: Inicia a interação com o bot e apresenta uma mensagem de boas-vindas
+- `/sim`: Envia as notícias mais lidas do UOL no momento
+
+## Mais informações
+Este é um projeto de conclusão da disciplina Algoritmos de Automação, ministrada por Álvaro Justen, no Master em Jornalismo de dados, automação e data storytelling do Insper.
