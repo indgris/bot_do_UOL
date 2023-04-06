@@ -1,8 +1,7 @@
-flask
-gunicorn
-tchan
-requests
-gspread
-oauth2client
 bs4
 datetime
+flask
+gspread
+gunicorn
+oauth2client
+requests
