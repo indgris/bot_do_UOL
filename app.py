@@ -31,11 +31,20 @@ def sobre():
 def contato():
   return menu + "iruela@uolinc.com"
 
+ultima_mensagem_recebida_id = None
+
 @app.route("/telegram-bot", methods=["POST"])
 def telegram_bot():
+    global ultima_mensagem_recebida_id # indica que é uma variável global
     if request.method == "POST":
         update = request.get_json()
         if "message" in update:
+            message_id = update["message"]["message_id"]
+            if message_id == ultima_mensagem_recebida_id:
+                # Ignora a mensagem duplicada
+                return "ok"
+            ultima_mensagem_recebida_id = message_id
+            
             text = update["message"]["text"]
             chat_id = update["message"]["chat"]["id"]
             datahora = str(datetime.fromtimestamp(update["message"]["date"]))
