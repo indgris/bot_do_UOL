@@ -3,7 +3,7 @@
 import os
 
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, request
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -15,21 +15,23 @@ app = Flask(__name__)
 
 menu = """
 
-<a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
+<a href="/">Página inicial</a> | <a href="/sobre">Sobre</a> | <a href="/saibamais">Saiba mais</a>
 
 """
 
 @app.route("/")
 def hello_world():
-    return render_template("index.html", menu=menu)
+    return menu + "<p></p><p>Hello, world! O bot do UOL está hospedado aqui :) com ele você recebe as matérias mais lidas do UOL neste momento. Acesse: t.me/universo_online_bot</p>"
+
 
 @app.route("/sobre")
 def sobre():
-    return render_template("sobre.html", menu=menu)
+  return menu + "<p></p><p>Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos.</p>"
 
 @app.route("/saibamais")
-def saibamais():
-    return render_template("saibamais.html", menu=menu)
+def contato():
+  return menu + ""<p></p><p>Este é um projeto de conclusão da disciplina Algoritmos de Automação, ministrada por Álvaro Justen, no Master em Jornalismo de dados, automação e data storytelling do Insper.</p>"
+
 
 #Bot do Telegram
 ultima_mensagem_recebida_id = None
