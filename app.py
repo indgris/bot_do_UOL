@@ -27,9 +27,9 @@ def hello_world():
 def sobre():
     return render_template("sobre.html", menu=menu)
 
-@app.route("/contato")
-def contato():
-    return render_template("contato.html", menu=menu)
+@app.route("/saibamais")
+def saibamais():
+    return render_template("saibamais.html", menu=menu)
 
 #Bot do Telegram
 ultima_mensagem_recebida_id = None
