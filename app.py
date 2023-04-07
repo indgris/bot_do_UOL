@@ -21,16 +21,17 @@ menu = """
 
 @app.route("/")
 def hello_world():
-  return menu + "Olá, mundo! Este é o saite da indgri"
+    return render_template("index.html", menu=menu)
 
 @app.route("/sobre")
 def sobre():
-  return menu + "Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos."
+    return render_template("sobre.html", menu=menu)
 
 @app.route("/contato")
 def contato():
-  return menu + "iruela@uolinc.com"
+    return render_template("contato.html", menu=menu)
 
+#Bot do Telegram
 ultima_mensagem_recebida_id = None
 
 @app.route("/telegram-bot", methods=["POST"])
