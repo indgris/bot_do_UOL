@@ -93,8 +93,7 @@ def telegram_bot():
             texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
 
         nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-        requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
-
+        
         # Requisita que a API do Telegram mande a mensagem
         resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
         print(resposta.text)
