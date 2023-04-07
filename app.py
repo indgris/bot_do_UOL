@@ -3,7 +3,7 @@
 import os
 
 import requests
-from flask import Flask, request
+from flask import Flask, render_template, request
 from bs4 import BeautifulSoup
 from datetime import datetime
 
