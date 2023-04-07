@@ -30,7 +30,7 @@ def sobre():
 
 @app.route("/saibamais")
 def contato():
-  return menu + ""<p></p><p>Este é um projeto de conclusão da disciplina Algoritmos de Automação, ministrada por Álvaro Justen, no Master em Jornalismo de dados, automação e data storytelling do Insper.</p>"
+  return menu + "<p></p><p>Este é um projeto de conclusão da disciplina Algoritmos de Automação, ministrada por Álvaro Justen, no Master em Jornalismo de dados, automação e data storytelling do Insper.</p>"
 
 
 #Bot do Telegram
