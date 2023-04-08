@@ -81,7 +81,7 @@ def telegram_bot():
 
        
         # Incluindo emojis diretamente
-        emoji_1 = "😀"
+        emoji_1 = "\U0001F600"  # 😀
         
         # Configuração da troca de mensagem
         if text == "/start":
@@ -103,7 +103,7 @@ def telegram_bot():
                 texto_resposta += f"{item}\n"
                                       
         elif text.lower().strip() in ["obrigado", "obrigada", "grato", "grata", "gratidão", "valeu", "valeu, véinho", "tchau"]:
-            texto_resposta = "Se quiser ler mais notícias, é chamar!"
+            texto_resposta = "Se quiser ler mais notícias, mande um oi aqui"
         
         elif text.lower().strip() in ["oi", "olá", ".", "salve", "ola", "hello", "hi", "oi, tudo bem?", "olá, td bem?", "oi, tudo bom?", "tudo bom?", "td bem?", "io"]:
             texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? Escolha: /sim ou /nao"
