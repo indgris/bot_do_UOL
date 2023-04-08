@@ -86,18 +86,15 @@ def telegram_bot():
         if text == "/start":
             texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? /sim ou /nao"
         
-        elif text.lower().strip() in ["/sim", /SIM", "\sim", "/dim", "\sin", "sim"]:
+        elif text.lower().strip() in ["/sim", "/SIM", "\sim", "/dim", "\sin", "sim"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
             for item in mensagem_final.split('\n')[:-1]:
                 texto_resposta += f"{item}\n"
          
         elif text.lower().strip() in ["/NÃO", "nao", "noa", "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
-            mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Sem problemas. Se quiser saber o que está acontecendo mais tarde, escreva: receber notícias."
-            for item in mensagem_final.split('\n')[:-1]:
-                texto_resposta += f"{item}\n"
-        
+                    
         elif text.lower().strip() in ["receber notícias", "receber notícias", "recber notícias", "receer notícias", "recebr notícias", "receber notcías", "receber notícias", "receber notíias", "receber notícas", "reecber notícias", "receber notíciás", "recebr notícas", "notícias", "receber"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
@@ -106,6 +103,9 @@ def telegram_bot():
                                       
         elif text.lower().strip() in ["obrigado", "obrigada", "grato", "grata", "gratidão", "valeu", "valeu, véinho", "tchau"]:
             texto_resposta = "Se quiser ler mais notícias, é chamar!"
+        
+        elif text.lower().strip() in ["oi", "olá", ".", "salve", "ola", "hello", "hi", "oi, tudo bem?", "olá, td bem?", "oi, tudo bom?", "tudo bom?", "td bem?", "io"]:
+            texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? Escolha: /sim ou /nao"
             
         else:
             texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
