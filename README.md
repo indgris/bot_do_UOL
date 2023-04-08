@@ -7,36 +7,28 @@ Este projeto é um bot do Telegram que fornece as notícias mais lidas do site U
 - Raspagem das notícias mais lidas no site UOL
 - Envio das notícias mais lidas para os usuários do Telegram
 - Comandos simples para interação com o bot
+- Resumo de informações sobre o serviço na página: https://teste-site-indgris.onrender.com
 
 ## Requisitos
 
-- bs4
-- datetime
-- flask
-- gunicorn
+- Python 3.x
+- Flask
+- Beautiful Soup
 - requests
 
-##Quer usar o código? Não se esqueça de:
+## Uso
 
-- Criar o token do seu robô no Telegram
-- Configurar o setWebhook do Telegram
-- Configurando o webhook do Telegram
-- Execute o seguinte código:
+1. Envie uma mensagem para o bot no Telegram. Você pode encontrá-lo em https://t.me/universo_online_bot.
 
-```
-import requests
+2. Use os seguintes comandos:
 
-token = "SEU TOKEN"
-url = "https://site-teste-turicas.onrender.com/telegram-bot"
-response = requests.post(f"https://api.telegram.org/bot{token}/setWebhook", data={"url": url})
-print(response.text)
+   - `/start`: Inicia a interação com o bot.
+   - `/sim`: Recebe as notícias mais lidas no site do UOL.
+   - `/nao`: Cancela o recebimento das notícias.
+   - `receber notícias`: Solicita as notícias mais lidas no momento.
+   - `obrigado`, `obrigada`, `grato`, `grata`, `gratidão`, `valeu`, `valeu, véinho`, `tchau`: Agradece ao bot e encerra a interação.
 
-```
-
-## Comandos do bot
-
-- `/start`: Inicia a interação com o bot e apresenta uma mensagem de boas-vindas
-- `/sim`: Envia as notícias mais lidas do UOL no momento
+3. Caso o bot não compreenda sua mensagem, ele responderá com uma mensagem padrão sugerindo que você visite o site do UOL.
 
 ## Mais informações
 Este é um projeto de conclusão da disciplina Algoritmos de Automação, ministrada por Álvaro Justen, no Master em Jornalismo de dados, automação e data storytelling do Insper.
