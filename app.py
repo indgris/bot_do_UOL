@@ -79,12 +79,13 @@ def telegram_bot():
 
         mensagem_final = mensagem_com_noticias_mais_lidas()
 
-        #Emojis
-        
+       
+        # Incluindo emojis diretamente
+        emoji_1 = "😀"
         
         # Configuração da troca de mensagem
         if text == "/start":
-            texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? /sim ou /nao"
+            texto_resposta = "Oi! Este é o bot do UOL {emoji_1} Você quer receber as notícias mais lidas no site do UOL agora? /sim ou /nao"
         
         elif text.lower().strip() in ["/sim", "/SIM", "\sim", "/dim", "\sin", "sim"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
