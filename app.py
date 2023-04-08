@@ -92,7 +92,7 @@ def telegram_bot():
             for item in mensagem_final.split('\n')[:-1]:
                 texto_resposta += f"{item}\n"
          
-        elif text.lower().strip() in ["/NÃO", "nao", "noa, "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
+        elif text.lower().strip() in ["/NÃO", "nao", "noa", "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Sem problemas. Se quiser saber o que está acontecendo mais tarde, escreva: receber notícias."
             for item in mensagem_final.split('\n')[:-1]:
