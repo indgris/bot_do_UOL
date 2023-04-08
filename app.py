@@ -79,19 +79,36 @@ def telegram_bot():
 
         mensagem_final = mensagem_com_noticias_mais_lidas()
 
+        #Emojis
+        
+        
         # Configuração da troca de mensagem
         if text == "/start":
-            texto_resposta = "Oi! Este é o bot do UOL, para receber as notícias mais lidas agora digite /sim"
-
-        elif text == "/sim":
-            texto_resposta = mensagem_final
-
+            texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? /sim /não"
+        
         elif text.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
             for item in mensagem_final.split('\n')[:-1]:
                 texto_resposta += f"{item}\n"
+         
+        elif text.lower().strip() in ["/NÃO", "nao", "noa, "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
+            mensagem_final = mensagem_com_noticias_mais_lidas()
+            texto_resposta = "Sem problemas. Se quiser saber o que está acontecendo mais tarde, escreva: receber notícias."
+            for item in mensagem_final.split('\n')[:-1]:
+                texto_resposta += f"{item}\n"
+        
+        elif text.lower().strip() in ["receber notícias", "receber notícias", "recber notícias", "receer notícias", "recebr notícias", "receber notcías", "receber notícias", "receber notíias", "receber notícas", "reecber notícias", "receber notíciás", "recebr notícas", "notícias, "receber"]:
+            mensagem_final = mensagem_com_noticias_mais_lidas()
+            texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
+            for item in mensagem_final.split('\n')[:-1]:
+                texto_resposta += f"{item}\n"
+                                      
+        elif text.lower().strip() in ["obrigado", "obrigada", "grato", "grata", "gratidão", "valeu", "valeu, véinho", "tchau"]:
+            texto_resposta_despedida = "Se quiser ler mais notícias, é chamar!"
+           
 
+                
         else:
             texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
 
