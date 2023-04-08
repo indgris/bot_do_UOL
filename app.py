@@ -98,17 +98,15 @@ def telegram_bot():
             for item in mensagem_final.split('\n')[:-1]:
                 texto_resposta += f"{item}\n"
         
-        elif text.lower().strip() in ["receber notícias", "receber notícias", "recber notícias", "receer notícias", "recebr notícias", "receber notcías", "receber notícias", "receber notíias", "receber notícas", "reecber notícias", "receber notíciás", "recebr notícas", "notícias, "receber"]:
+        elif text.lower().strip() in ["receber notícias", "receber notícias", "recber notícias", "receer notícias", "recebr notícias", "receber notcías", "receber notícias", "receber notíias", "receber notícas", "reecber notícias", "receber notíciás", "recebr notícas", "notícias", "receber"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
             for item in mensagem_final.split('\n')[:-1]:
                 texto_resposta += f"{item}\n"
                                       
         elif text.lower().strip() in ["obrigado", "obrigada", "grato", "grata", "gratidão", "valeu", "valeu, véinho", "tchau"]:
-            texto_resposta_despedida = "Se quiser ler mais notícias, é chamar!"
-           
-
-                
+            texto_resposta = "Se quiser ler mais notícias, é chamar!"
+            
         else:
             texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
 
