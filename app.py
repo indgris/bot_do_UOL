@@ -84,9 +84,9 @@ def telegram_bot():
         
         # Configuração da troca de mensagem
         if text == "/start":
-            texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? /sim /não"
+            texto_resposta = "Oi! Este é o bot do UOL. Você quer receber as notícias mais lidas no site do UOL agora? /sim ou /nao"
         
-        elif text.lower().strip() in ["/SIM", "\sim", "/dim", "\sin", "sim"]:
+        elif text.lower().strip() in ["/sim", /SIM", "\sim", "/dim", "\sin", "sim"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n"
             for item in mensagem_final.split('\n')[:-1]:
