@@ -1,4 +1,4 @@
-# UOL Notícias Mais Lidas Telegram Bot
+# Bot de Notícias UOL: As Mais Lidas no Telegram
 
 Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos.
 
