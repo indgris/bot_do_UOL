@@ -75,7 +75,7 @@ def telegram_bot():
                 # Tratamento da mensagem final que será enviada pelo bot
                 mensagem_final = " "
                 for item in mais_lidas_uol:
-                    mensagem_final = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n"
+                    mensagem_final = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n \n"
 
                 return mensagem_final
 
@@ -182,10 +182,10 @@ def telegram_bot():
 
         ############################################################### Configuração da troca de mensagem
         if text == "/start":
-            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) \n Você quer receber as notícias principais notícias do UOL agora? /sim ou /nao"
+            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) \n \n Você quer receber as notícias principais notícias do UOL agora? Escolha uma opção: /sim ou /nao"
         
         elif text.lower().strip() in ["/sim", "/SIM", "\sim", "/dim", "\sin", "sim"]:
-            texto_resposta = "Legal! ( ͡ᵔ ͜ʖ ͡ᵔ) \n \n Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares"                           
+            texto_resposta = "Legal! ( ͡ᵔ ͜ʖ ͡ᵔ) \n \n Agora escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares \n \n \n Você pode voltar a este menu a qualquer momento enviando \menu"                           
                 
         elif text.lower().strip() in ["/NÃO", "nao", "noa", "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
             texto_resposta = "Sem problemas ¯\_( ͡❛ ͜ʖ ͡❛)_/¯ Se quiser saber o que está acontecendo mais tarde, escreva: receber notícias."
@@ -221,16 +221,19 @@ def telegram_bot():
                  texto_resposta += f"{item}\n"
                                                           
         elif text.lower().strip() in ["receber notícias", "receber notícias", "recber notícias", "receer notícias", "recebr notícias", "receber notcías", "receber notícias", "receber notíias", "receber notícas", "reecber notícias", "receber notíciás", "recebr notícas", "notícias", "receber"]:
-             texto_resposta = "Oi, sobre o que você quer ler? Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares"
+             texto_resposta = "Oi, sobre o que você quer ler? Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares \n \n \n Você pode voltar a este menu a qualquer momento enviando \menu"
                                                    
         elif text.lower().strip() in ["obrigado", "obrigada", "grato", "grata", "gratidão", "valeu", "valeu, véinho", "tchau"]:
             texto_resposta = "Se quiser ler mais notícias, mande um oi aqui! ( ͡ᵔ ͜ʖ ͡ᵔ)"
         
         elif text.lower().strip() in ["oi", "olá", ".", "salve", "ola", "hello", "hi", "oi, tudo bem?", "olá, td bem?", "oi, tudo bom?", "tudo bom?", "td bem?", "io"]:
-            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) Sobre o que você quer ler? \n \n Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares"
+            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) Sobre o que você quer ler? \n \n Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares \n \n Você pode voltar a este menu a qualquer momento enviando \menu"
+       
+        elif text.lower().strip() in ["menu", "voltar", "/menu", "\menu", "/voltar", "\voltar"]:
+            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) Sobre o que você quer ler? \n \n Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares \n \n Você pode voltar a este menu a qualquer momento enviando \menu"
             
         else:
-            texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
+            texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) \n \n Para voltar ao menu principal, envie \menu \n \n Visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
 
         nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
         
