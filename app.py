@@ -141,9 +141,9 @@ def telegram_bot():
                 destaque_uol_noticias = []
     
                 for noticia in links_uol_noticias:
-                manchete = noticia.text.strip()
-                link = noticia.get('href')
-                destaque_uol_noticias.append([manchete, link])
+                    manchete = noticia.text.strip()
+                    link = noticia.get('href')
+                    destaque_uol_noticias.append([manchete, link])
     
                 # Tratamento da mensagem final que será enviada pelo bot
                 mensagem_final_uol_noticias = " "
