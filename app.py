@@ -182,7 +182,7 @@ def telegram_bot():
 
         ############################################################### Configuração da troca de mensagem
         if text == "/start":
-            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) \n \n Você quer receber as notícias principais notícias do UOL agora? Escolha uma opção: /sim ou /nao"
+            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) \n \n Escolha uma opção para receber as principais notícias do UOL agora: /sim ou /nao"
         
         elif text.lower().strip() in ["/sim", "/SIM", "\sim", "/dim", "\sin", "sim"]:
             texto_resposta = "Legal! ( ͡ᵔ ͜ʖ ͡ᵔ) \n \n Agora escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares \n \n \n Você pode voltar a este menu a qualquer momento enviando \menu"                           
