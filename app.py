@@ -107,51 +107,51 @@ def telegram_bot():
             
             mensagem_final_economia = mensagem_com_noticias_economia()
 
-           def mensagem_com_noticias_splash():
-           # raspagem splash
-           link = 'https://www.uol.com.br/splash/'
-           resposta = requests.get(link)
-           html = BeautifulSoup(resposta.content, 'html.parser')
-           links_uol_splash = html.findAll('div', {'class': 'row'})[1].findAll('a')
-
-           mais_lidas_uol_entrete = []
-
-           for noticia in links_uol_splash:
-               manchete = noticia.text.strip()
-               link = noticia.get('href')
-               mais_lidas_uol_entrete.append([manchete, link])
-
-           # Tratamento da mensagem final que será enviada pelo bot
-           mensagem_final_entrete = " "
-           for item in mais_lidas_uol_entrete:
-               mensagem_final_entrete = mensagem_final_entrete + f"{item[0]} | Leia agora! {item[1]}\n \n"
-
-           return mensagem_final_entrete
-
-           mensagem_final_entrete = mensagem_com_noticias_splash()
-
-                                                  
-           def  mensagem_com_noticias_geral():
+            def mensagem_com_noticias_splash():
+               # raspagem splash
+               link = 'https://www.uol.com.br/splash/'
+               resposta = requests.get(link)
+               html = BeautifulSoup(resposta.content, 'html.parser')
+               links_uol_splash = html.findAll('div', {'class': 'row'})[1].findAll('a')
+    
+               mais_lidas_uol_entrete = []
+    
+               for noticia in links_uol_splash:
+                   manchete = noticia.text.strip()
+                   link = noticia.get('href')
+                   mais_lidas_uol_entrete.append([manchete, link])
+    
+               # Tratamento da mensagem final que será enviada pelo bot
+               mensagem_final_entrete = " "
+               for item in mais_lidas_uol_entrete:
+                   mensagem_final_entrete = mensagem_final_entrete + f"{item[0]} | Leia agora! {item[1]}\n \n"
+    
+               return mensagem_final_entrete
+    
+            mensagem_final_entrete = mensagem_com_noticias_splash()
+    
+                                                      
+            def  mensagem_com_noticias_geral():
                 # raspagem
                 link = 'https://noticias.uol.com.br/'
                 resposta = requests.get(link)
                 html = BeautifulSoup(resposta.content, 'html.parser')
                 links_uol_noticias = html.findAll('div', {'class': 'float-box'})[0].findAll('a')
-
+    
                 destaque_uol_noticias = []
-
+    
                 for noticia in links_uol_noticias:
-                    manchete = noticia.text.strip()
-                    link = noticia.get('href')
-                    destaque_uol_noticias.append([manchete, link])
-
+                manchete = noticia.text.strip()
+                link = noticia.get('href')
+                destaque_uol_noticias.append([manchete, link])
+    
                 # Tratamento da mensagem final que será enviada pelo bot
                 mensagem_final_uol_noticias = " "
                 for item in destaque_uol_noticias:
                     mensagem_final_uol_noticias = mensagem_final_uol_noticias + f"{item[0]} | Leia agora! {item[1]}\n \n"
-
+    
                 return mensagem_final_uol_noticias   
-                                                  
+                                                      
             mensagem_final_uol_noticias = mensagem_com_noticias_geral()
                                                   
                                                   
