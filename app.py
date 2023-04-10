@@ -21,12 +21,12 @@ menu = """
 
 @app.route("/")
 def hello_world():
-    return menu + "<p></p><p>Hello, world! O bot do UOL está hospedado aqui :) com ele você recebe as matérias mais lidas do UOL neste momento. Acesse: t.me/universo_online_bot</p>"
+    return menu + "<p></p><p>Hello, world! O bot do UOL está hospedado aqui :) com ele você recebe as principais notícias do UOL. Acesse: https://t.me/universo_online_bot</p>"
 
 
 @app.route("/sobre")
 def sobre():
-  return menu + "<p></p><p>Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos.</p>"
+  return menu + "<p></p><p>Este projeto é um bot do Telegram que fornece as notícias mais lidas do site UOL, os destaques de esportes, economia, política e entretenimento. O bot realiza a raspagem das notícias mais lidas e as envia para os usuários por meio de comandos específicos.</p>"
 
 @app.route("/saibamais")
 def contato():
@@ -88,11 +88,11 @@ def telegram_bot():
                 resposta = requests.get(link)
                 html = BeautifulSoup(resposta.content, 'html.parser')
 
-                links_uol = html.findAll('div', {'class': 'float-box'})[0].findAll('a')
+                links_uol_economia = html.findAll('div', {'class': 'float-box'})[0].findAll('a')
 
                 mais_lidas_economia = []
 
-                for noticia in links_uol:
+                for noticia in links_uol_economia:
                     manchete = noticia.text.strip()
                     link = noticia.get('href')
                     data = datetime.today()
@@ -190,7 +190,7 @@ def telegram_bot():
         elif text.lower().strip() in ["/NÃO", "nao", "noa", "não", "/não", "\não", "/nao", "náo", "nã0", "/náo", "\nao", "nào", "naõ", "nâo", "/nâo", "\nâo"]:
             texto_resposta = "Sem problemas ¯\_( ͡❛ ͜ʖ ͡❛)_/¯ Se quiser saber o que está acontecendo mais tarde, escreva: receber notícias."
         
-        elif text.lower().strip() in ["/populares", "/MAIS-LIDAS", "\mais-lidas", "mas lidas", "mais lida", "mias lidas", "mai lida"]:
+        elif text.lower().strip() in ["/populares", "populraes", "/popualres", "poupalres", "\opularesp", "popularesa", "populaers", "popluarse", "populars", "populaes", "popuares"]:
             mensagem_final = mensagem_com_noticias_mais_lidas()
             texto_resposta = "Essas são as matérias mais lidas no UOL agora: \n \n"
             for item in mensagem_final.split('\n')[:-1]:
@@ -227,7 +227,7 @@ def telegram_bot():
             texto_resposta = "Se quiser ler mais notícias, mande um oi aqui! ( ͡ᵔ ͜ʖ ͡ᵔ)"
         
         elif text.lower().strip() in ["oi", "olá", ".", "salve", "ola", "hello", "hi", "oi, tudo bem?", "olá, td bem?", "oi, tudo bom?", "tudo bom?", "td bem?", "io"]:
-            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) Sobre o que você quer ler? Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares"
+            texto_resposta = "Oi! Este é o bot do UOL ( ͡❛ ͜ʖ ͡❛) Sobre o que você quer ler? \n \n Escolha uma categoria: \n /esportes \n /economia \n /noticias \n /entretenimento \n /populares"
             
         else:
             texto_resposta = "Não entendi o que você quis dizer! Eu ainda estou aprendendo :) Enquanto isso, visite o www.uol.com.br e fique por dentro do que está acontecendo no Brasil e no mundo."
