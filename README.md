@@ -11,11 +11,11 @@ Este é um projeto de bot do Telegram que fornece as notícias mais lidas e dest
 - Raspagem dos destaques de Splash
 - Envio das notícias mais lidas para os usuários do Telegram
 - Comandos simples para interação com o bot
-- Resumo de informações sobre o serviço na página: https://universo-online-bot.onrender.com/saibamais
+- Resumo de informações sobre o serviço na página: https://universo-online-bot.onrender.com/
 
 ## Requisitos
 
-- Python 3.x
+- Python 3.11.3
 - Flask
 - Beautiful Soup
 - requests
