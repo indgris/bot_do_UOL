@@ -101,7 +101,7 @@ def telegram_bot():
                 # Tratamento da mensagem final que será enviada pelo bot
                 mensagem_final_economia = " "
                 for item in mais_lidas_economia:
-                    mensagem_final_economia = mensagem_final + f"{item[0]} | Leia agora! {item[1]}\n \n"
+                    mensagem_final_economia = mensagem_final_economia + f"{item[0]} | Leia agora! {item[1]}\n \n"
 
                 return mensagem_final_economia
             
