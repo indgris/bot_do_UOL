@@ -108,28 +108,28 @@ def telegram_bot():
             mensagem_final_economia = mensagem_com_noticias_economia()
 
            def mensagem_com_noticias_splash():
-                # raspagem splash
-                link = 'https://www.uol.com.br/splash/'
-                resposta = requests.get(link)
-                html = BeautifulSoup(resposta.content, 'html.parser')
-                links_uol_splash = html.findAll('div', {'class': 'row'})[1].findAll('a')
+           # raspagem splash
+           link = 'https://www.uol.com.br/splash/'
+           resposta = requests.get(link)
+           html = BeautifulSoup(resposta.content, 'html.parser')
+           links_uol_splash = html.findAll('div', {'class': 'row'})[1].findAll('a')
 
-                mais_lidas_uol_entrete = []
+           mais_lidas_uol_entrete = []
 
-                for noticia in links_uol_splash:
-                    manchete = noticia.text.strip()
-                    link = noticia.get('href')
-                    mais_lidas_uol_entrete.append([manchete, link]
-                                      
-                                      
-                # Tratamento da mensagem final que será enviada pelo bot
-                mensagem_final_entrete = " "
-                for item in mais_lidas_uol_entrete:
-                    mensagem_final_entrete = mensagem_final_entrete + f"{item[0]} | Leia agora! {item[1]}\n \n"
+           for noticia in links_uol_splash:
+               manchete = noticia.text.strip()
+               link = noticia.get('href')
+               mais_lidas_uol_entrete.append([manchete, link])
 
-                return mensagem_final_entrete
-                                                  
+           # Tratamento da mensagem final que será enviada pelo bot
+           mensagem_final_entrete = " "
+           for item in mais_lidas_uol_entrete:
+               mensagem_final_entrete = mensagem_final_entrete + f"{item[0]} | Leia agora! {item[1]}\n \n"
+
+           return mensagem_final_entrete
+
            mensagem_final_entrete = mensagem_com_noticias_splash()
+
                                                   
            def  mensagem_com_noticias_geral():
                 # raspagem
